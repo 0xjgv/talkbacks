@@ -29,8 +29,8 @@ async function consumer(type, producer, payload) {
     return producer(1, consumer, 'Start sending!');
   } else if (type === 1) {
     const { acc, current } = payload;
-    const orders = acc.concat(current).slice(-3);
     await wait(1);
+    const orders = acc.concat(current).slice(-3);
     console.log(`Consumer received: ${current}`);
     if (current > 19) {
       console.log('Stop sending...');
@@ -39,7 +39,7 @@ async function consumer(type, producer, payload) {
       console.log('Consumer requests action...');
       const action = (value) =>
         new Promise((resolve) => {
-          const rand = Math.max(Math.random() * 6000, 3000) + 1000;
+          const rand = ~~Math.max(Math.random() * 6000, 3000) + 1000;
           console.log(`Action: wait for ${rand}ms`);
           setTimeout(() => {
             resolve(value);
@@ -51,6 +51,7 @@ async function consumer(type, producer, payload) {
         action
       });
     }
+
     return producer(1, consumer, { orders, previous: current });
   }
 }

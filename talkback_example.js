@@ -1,5 +1,6 @@
-const wait = (seconds) =>
-  new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+function wait(seconds) {
+  return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+}
 
 async function producer(type, consumer, payload) {
   if (type === 0) {
